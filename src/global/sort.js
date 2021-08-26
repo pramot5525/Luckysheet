@@ -41,7 +41,8 @@ function orderbydata(data, index, isAsc) {
             return numeral(x1).value() - numeral(y1).value();
         }
         else if (!isRealNum(x1) && !isRealNum(y1)) {
-            return x1.localeCompare(y1, "zh");
+            // return x1.localeCompare(y1, "zh");
+            return x1.localeCompare(y1, navigator.languages[0] || navigator.language, {numeric: true, ignorePunctuation: true})
         }
         else if (!isRealNum(x1)) {
             return 1;
@@ -77,14 +78,16 @@ function orderbydata(data, index, isAsc) {
             return numeral(y1).value() - numeral(x1).value();
         }
         else if (!isRealNum(x1) && !isRealNum(y1)) {
-            return y1.localeCompare(x1, "zh");
+            // return y1.localeCompare(x1, "zh");
+            return y1.localeCompare(x1, navigator.languages[0] || navigator.language, {numeric: true, ignorePunctuation: true})
+
         }
         else if (!isRealNum(x1)) {
             return -1;
         }
         else if (!isRealNum(y1)) {
             return 1;
-        }
+        } 
     }
 
     if (isAsc) {

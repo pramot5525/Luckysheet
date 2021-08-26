@@ -33,7 +33,7 @@ import conditionformat from '../controllers/conditionformat';
 import { luckysheet_searcharray } from "../controllers/sheetSearch";
 import { selectHightlightShow, selectIsOverlap } from '../controllers/select';
 import { sheetHTML, luckysheetdefaultstyle } from '../controllers/constant';
-import { createFilterOptions } from '../controllers/filter';
+import { createFilterOptions, orderbydatafiler } from '../controllers/filter';
 import controlHistory from '../controllers/controlHistory';
 import { zoomRefreshView, zoomNumberDomBind } from '../controllers/zoom';
 import dataVerificationCtrl from "../controllers/dataVerificationCtrl";
@@ -41,6 +41,8 @@ import imageCtrl from '../controllers/imageCtrl';
 import dayjs from "dayjs";
 import {getRangetxt } from '../methods/get';
 import {luckysheetupdateCell} from '../controllers/updateCell';
+import {luckysheetcolsdbclickCustom} from "../controllers/rowColumnOperation";
+
 const IDCardReg = /^\d{6}(18|19|20)?\d{2}(0[1-9]|1[12])(0[1-9]|[12]\d|3[01])\d{3}(\d|X)$/i;
 
 /**
@@ -2884,8 +2886,8 @@ export function setSingleRangeFormat(attr, value, options = {}) {
 
     for (let r = range.row[0]; r <= range.row[1]; r++) {
         for (let c = range.column[0]; c <= range.column[1]; c++) {
-            console.log('r',r);
-            console.log('c',c);
+            // console.log('r',r);
+            // console.log('c',c);
             setCellValue(r, c, {[attr]: value}, {
                 order: order,
                 isRefresh: false,
@@ -2939,7 +2941,7 @@ export function setRangeFormat(attr, value, options = {}) {
     }
 
     let file = Store.luckysheetfile[order];
-
+    let sheetData = $.extend(true, [], file.data);
     let result = []
 
     for (let i = 0; i < range.length; i++) {
@@ -6831,4 +6833,19 @@ export function checkTheStatusOfTheSelectedCells(type,status){
     })
 
     return flag;
+}
+
+/**
+ * custom column width
+ */
+
+export function setAutoColumnWidth() {
+    $("#luckysheet-left-top").click()
+    luckysheetcolsdbclickCustom()
+    // cleargridelement();
+    setRangeShow("A1")
+}
+
+export function orderByDataFilter(str, stc, edr, edc, index, asc) {
+  return orderbydatafiler(str, stc, edr, edc, index, asc)
 }

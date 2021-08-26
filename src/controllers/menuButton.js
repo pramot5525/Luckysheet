@@ -231,7 +231,7 @@ const menuButton = {
         $("#luckysheet-icon-currency").click(function(){
             let d = editor.deepCopyFlowData(Store.flowdata);//取数据
 
-            _this.updateFormat(d, "ct", "¥ #.00");
+            _this.updateFormat(d, "ct", "$ #.00");
         });
 
         //百分比
@@ -275,8 +275,8 @@ const menuButton = {
 
                 return;
             }
-            //Uncaught ReferenceError: Cannot access 'fa' before initialization
-            let prefix = "", main = "", fa = [];
+
+            let prefix = "", main = "";
             if(foucsStatus.fa.indexOf(".")>-1){
                 fa = foucsStatus.fa.split(".");
                 prefix = fa[0];
@@ -286,7 +286,7 @@ const menuButton = {
                 return;
             }
 
-            fa = main.split("");
+            let fa = main.split("");
             let tail = "";
             for(let i = fa.length-1; i >= 0; i--){
                 let c = fa[i];
@@ -358,9 +358,7 @@ const menuButton = {
                 return;
             }
 
-            //Uncaught ReferenceError: Cannot access 'fa' before initialization
-            let prefix = "", main = "", fa = [];
-            
+            let prefix = "", main = "";
             if(foucsStatus.fa.indexOf(".")>-1){
                 fa = foucsStatus.fa.split(".");
                 prefix = fa[0];
@@ -370,7 +368,7 @@ const menuButton = {
                 main = foucsStatus.fa;
             }
 
-            fa = main.split("");
+            let fa = main.split("");
             let tail = "";
             for(let i = fa.length - 1; i >= 0; i--){
                 let c = fa[i];
@@ -804,7 +802,8 @@ const menuButton = {
                     alternateformat.perfect();
                 });
 
-                $("#" + menuButtonId).find(".luckysheet-color-selected").val("#fff");
+                $("#" + menuButtonId).find(".luckysheet-color-selected").val("#f00");
+                $("#" + menuButtonId).find(".luckysheet-color-selected").spectrum("set", "#f00");
             }
 
             let userlen = $(this).outerWidth();

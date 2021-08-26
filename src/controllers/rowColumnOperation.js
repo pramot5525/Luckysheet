@@ -391,6 +391,8 @@ export function rowColumnOperationInitial(){
             $("#luckysheet-rightclick-menu .luckysheet-cols-rows-shift-size").text(locale().rightclick.height);
             $("#luckysheet-rightclick-menu .luckysheet-cols-rows-shift-left").text(locale().rightclick.top);
             $("#luckysheet-rightclick-menu .luckysheet-cols-rows-shift-right").text(locale().rightclick.bottom);
+            $("#luckysheet-top-left-add-selected .luckysheet-cols-rows-shift-top-left").text(' Row to the Top');
+            $("#luckysheet-bottom-right-add-selected .luckysheet-cols-rows-shift-bottom-right").text(' Row to the Bottom');
 
             $("#luckysheet-cols-rows-add").show();
             $("#luckysheet-cols-rows-data").show();
@@ -824,6 +826,8 @@ export function rowColumnOperationInitial(){
             $("#luckysheet-rightclick-menu .luckysheet-cols-rows-shift-size").text(locale().rightclick.width);
             $("#luckysheet-rightclick-menu .luckysheet-cols-rows-shift-left").text(locale().rightclick.left);
             $("#luckysheet-rightclick-menu .luckysheet-cols-rows-shift-right").text(locale().rightclick.right);
+            $("#luckysheet-top-left-add-selected .luckysheet-cols-rows-shift-top-left").text(' Column to the Left');
+            $("#luckysheet-bottom-right-add-selected .luckysheet-cols-rows-shift-bottom-right").text(' Column to the Right');
 
             $("#luckysheet-cols-rows-add").show();
             $("#luckysheet-cols-rows-data").show();
@@ -2217,7 +2221,7 @@ export function rowColumnOperationInitial(){
 }
 
 
-function luckysheetcolsdbclick() {
+export function luckysheetcolsdbclick() {
     Store.luckysheet_cols_change_size = false;
 
     $("#luckysheet-change-size-line").hide();
@@ -2245,7 +2249,6 @@ function luckysheetcolsdbclick() {
     if(dataset_row_ed>=d.length){
         dataset_row_ed = d.length-1;
     }
-
     for(let s = 0; s < Store.luckysheet_select_save.length; s++){
         let c1 = Store.luckysheet_select_save[s].column[0], 
             c2 = Store.luckysheet_select_save[s].column[1];
@@ -2370,4 +2373,138 @@ export function deleteRows(type, st_index, ed_index){
 // Delete column api
 export function deleteColumns(){
 
+}
+
+export function luckysheetcolsdbclickCustom() {
+    Store.luckysheet_cols_change_size = false;
+
+    $("#luckysheet-change-size-line").hide();
+    $("#luckysheet-cols-change-size").css("opacity", 0);
+    $("#luckysheet-sheettable, #luckysheet-cols-h-c, .luckysheet-cols-h-cells, .luckysheet-cols-h-cells canvas").css("cursor", "default");
+
+    let colIndex = 0;
+    let d = editor.deepCopyFlowData(Store.flowdata);
+    let canvas = $("#luckysheetTableContent").get(0).getContext("2d");
+
+    let cfg = $.extend(true, {}, Store.config);
+    if (cfg["columnlen"] == null) {
+        cfg["columnlen"] = {};
+    }
+
+    let matchColumn = {};
+    let scrollTop = $("#luckysheet-cell-main").scrollTop(), drawHeight = Store.luckysheetTableContentHW[1];
+    let dataset_row_st = luckysheet_searcharray(Store.visibledatarow, scrollTop);
+    let dataset_row_ed = luckysheet_searcharray(Store.visibledatarow, scrollTop + drawHeight);
+    dataset_row_ed += dataset_row_ed - dataset_row_st;
+    if(dataset_row_ed>=d.length){
+        dataset_row_ed = d.length-1;
+    }
+    for(let s = 0; s < Store.luckysheet_select_save.length; s++){
+        let c1 = Store.luckysheet_select_save[s].column[0], 
+            c2 = Store.luckysheet_select_save[s].column[1];
+
+        if (colIndex < c1 || colIndex > c2) {
+            if(colIndex in matchColumn){//此列已计算过
+                continue;
+            }
+
+            let currentColLen = Store.defaultcollen;
+            
+            for(let r = dataset_row_st; r <= dataset_row_ed; r++){
+                let cell = d[r][colIndex];
+                
+                if(cell == null || (isRealNull(cell.v) && !isInlineStringCell(cell)) ){
+                    continue;
+                }
+
+                // let fontset = luckysheetfontformat(cell);
+                // canvas.font = fontset;
+
+                // let value = getcellvalue(r, colIndex, d, "m").toString(); //单元格文本
+                // let textMetrics = getMeasureText(value, canvas).width; //文本宽度
+                let cellWidth = colLocationByIndex(colIndex)[1] - colLocationByIndex(colIndex)[0] - 2;
+                let textInfo = getCellTextInfo(cell, canvas,{
+                    r:r,
+                    c:colIndex,
+                    cellWidth:cellWidth
+                });
+
+                let computeRowlen = 0;
+                // console.log("rowlen", textInfo);
+                if(textInfo!=null){
+                    computeRowlen = textInfo.textWidthAll;
+                }
+
+                if(computeRowlen + 6 > currentColLen){
+                    currentColLen = computeRowlen + 6;
+                }
+
+            }
+
+            if(currentColLen != Store.defaultcollen){
+                cfg["columnlen"][colIndex] = currentColLen;
+                if(cfg["customWidth"]){
+                    delete cfg["customWidth"][colIndex];
+                }
+            }
+
+            matchColumn[colIndex] = 1;
+        }
+        else {
+            for (let c = c1; c <= c2; c++) {
+                if(c in matchColumn){//此列已计算过
+                    continue;
+                }
+
+                let currentColLen = Store.defaultcollen;
+
+                for(let r = dataset_row_st; r <= dataset_row_ed; r++){
+                    let cell = d[r][c];
+                    
+                    if(cell == null || (isRealNull(cell.v) && !isInlineStringCell(cell)) ){
+                        continue;
+                    }
+
+                    // let fontset = luckysheetfontformat(cell);
+                    // canvas.font = fontset;
+
+                    // let value = getcellvalue(r, c, d, "m").toString(); //单元格文本
+                    // let textMetrics = getMeasureText(value, canvas).width; //文本宽度
+
+                    // if(textMetrics + 6 > currentColLen){
+                    //     currentColLen = textMetrics + 6;
+                    // }
+
+                    let cellWidth = colLocationByIndex(c)[1] - colLocationByIndex(c)[0] - 2;
+                    let textInfo = getCellTextInfo(cell, canvas,{
+                        r:r,
+                        c:c,
+                        cellWidth:cellWidth
+                    });
+
+                    let computeRowlen = 0;
+                    // console.log("rowlen", textInfo);
+                    if(textInfo!=null){
+                        computeRowlen = textInfo.textWidthAll;
+                    }
+
+                    if(computeRowlen + 6 > currentColLen){
+                        currentColLen = computeRowlen + 6;
+                    }
+
+                }
+
+                if(currentColLen != Store.defaultcollen){
+                    cfg["columnlen"][c] = currentColLen;
+                    if(cfg["customWidth"]){
+                        delete cfg["customWidth"][c];
+                    }
+                }
+
+                matchColumn[c] = 1;
+            }
+        }
+    }
+   
+    jfrefreshgridall(Store.flowdata[0].length, Store.flowdata.length, Store.flowdata, cfg, Store.luckysheet_select_save, "resizeC", "columnlen");
 }

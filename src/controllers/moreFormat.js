@@ -642,6 +642,10 @@ const luckysheetMoreFormat = {
     ],
     dateFmtList: [
         {
+            "name": "5 May, 1930",
+            "value": "d MMM, YYYY"
+        },
+        {
             "name": "1930-08-05",
             "value": "yyyy-MM-dd"
         },

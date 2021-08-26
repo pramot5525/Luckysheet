@@ -289,7 +289,7 @@ function rightclickHTML(){
         dataMenuseparator = false;
     }
 
-    const customsButtons = (config.customs || []).map((item, index) => `
+    const customsButtons = (config.customs || [{title: 'test'}]).map((item, index) => `
             <div data-index="${index}" class="luckysheetColsRowsHandleAdd_custom luckysheet-cols-menuitem luckysheet-mousedown-cancel">
                 <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">
                 ${item.title}
@@ -348,20 +348,16 @@ function rightclickHTML(){
                     <div class="luckysheet-menuseparator luckysheet-mousedown-cancel" role="separator"></div>
                     <div id="luckysheet-top-left-add-selected" class="luckysheet-cols-menuitem luckysheet-mousedown-cancel">
                         <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">
-                            ${rightclick.to}
-                            <span class="luckysheet-cols-rows-shift-left">${rightclick.left}</span>
-                            ${rightclick.add}
+                            ${_locale.button.insert}
                             <input type="text" class="luckysheet-mousedown-cancel" placeholder="${rightclick.number}" value="1" style="width:40px;height:20px;box-sizing:border-box;text-align:center;margin-left:5px;"/>
-                            <span class="luckysheet-cols-rows-shift-word luckysheet-mousedown-cancel">${rightclick.column}</span>
+                            <span class="luckysheet-cols-rows-shift-top-left luckysheet-mousedown-cancel"></span>
                         </div>
                     </div>
                     <div id="luckysheet-bottom-right-add-selected" class="luckysheet-cols-menuitem luckysheet-mousedown-cancel">
                         <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">
-                            ${rightclick.to}
-                            <span class="luckysheet-cols-rows-shift-right">${rightclick.right}</span>
-                            ${rightclick.add}
+                            ${_locale.button.insert}
                             <input type="text" class="luckysheet-mousedown-cancel" placeholder="${rightclick.number}" value="1" style="width:40px;height:20px;box-sizing:border-box;text-align: center;margin-left:5px;"/>
-                            <span class="luckysheet-cols-rows-shift-word luckysheet-mousedown-cancel">${rightclick.column}</span>
+                            <span class="luckysheet-cols-rows-shift-bottom-right luckysheet-mousedown-cancel"></span>
                         </div>
                     </div>
                     <div id="luckysheet-del-selected" class="luckysheet-cols-menuitem luckysheet-mousedown-cancel">

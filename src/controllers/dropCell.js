@@ -399,7 +399,6 @@ const luckysheetDropCell = {
             for(let c = str_c; c <= end_c; c++){
                 if(!!Store.flowdata[r][c]){
                     let cell = Store.flowdata[r][c];
-
                     if(getObjType(cell) == "object" && cell["v"] != null && cell["f"] == null){
                         if(cell["ct"] != null && cell["ct"].t == "n"){
                             hasNumber = true;
@@ -421,6 +420,11 @@ const luckysheetDropCell = {
                         }
                         else if(_this.isChnWeek3(cell["m"])){
                             hasChnWeek3 = true;
+                        }
+                    } else if (getObjType(cell) == "object" && cell["v"] != null) {
+                      // fix case calc formula with format currency 
+                      if(cell["ct"] != null && cell["ct"].t == "n"){
+                          hasNumber = true;
                         }
                     }
                 }
@@ -513,7 +517,12 @@ const luckysheetDropCell = {
                                                /* 如果是数字类型 */
                                                mask = genarate(Math.round(cell.v * 1000000000) / 1000000000 + ".00") ;
                                                cell.m = mask[0].toString();
-                                            }else {
+                                            } else if (cell.ct.fa !== null) {
+                                              /* fix format formula */
+                                              let v_p = Math.round(cell.v * 1000000000) / 1000000000;
+                                              let mask = update(cell.ct.fa, v_p);
+                                              cell.m = mask.toString();
+                                            } else {
                                                 mask = genarate(Math.round(cell.v * 1000000000) / 1000000000);
                                                 cell.m = mask[0].toString();
                                             }

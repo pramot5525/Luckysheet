@@ -2117,6 +2117,9 @@ const luckysheetformula = {
     },
     functionStrChange: function (txt, type, rc, orient, stindex, step) {
         let _this = this;
+        // fix bug case cant add row :art
+        if (typeof txt !== 'string') return
+        // fix bug 
 
         if (_this.operatorjson == null) {
             let arr = _this.operator.split("|"),
@@ -2704,10 +2707,11 @@ const luckysheetformula = {
             columnseleted = [_this.func_selectedrange.column[0], col_index];
         }
 
-        rowseleted[0] = luckysheetFreezen.changeFreezenIndex(rowseleted[0], "h");
-        rowseleted[1] = luckysheetFreezen.changeFreezenIndex(rowseleted[1], "h");
-        columnseleted[0] = luckysheetFreezen.changeFreezenIndex(columnseleted[0], "v");
-        columnseleted[1] = luckysheetFreezen.changeFreezenIndex(columnseleted[1], "v");
+        // fix bug: drage set scroll case sheet has freze colum row
+        // rowseleted[0] = luckysheetFreezen.changeFreezenIndex(rowseleted[0], "h");
+        // rowseleted[1] = luckysheetFreezen.changeFreezenIndex(rowseleted[1], "h");
+        // columnseleted[0] = luckysheetFreezen.changeFreezenIndex(columnseleted[0], "v");
+        // columnseleted[1] = luckysheetFreezen.changeFreezenIndex(columnseleted[1], "v");
 
         let changeparam = menuButton.mergeMoveMain(columnseleted, rowseleted, _this.func_selectedrange, top, height, left, width);
         if (changeparam != null) {
@@ -2747,8 +2751,8 @@ const luckysheetformula = {
                 "column": columnseleted
             });
         }
-
-        luckysheetFreezen.scrollFreezen(rowseleted, columnseleted);
+        // fix bug: drage set scroll case sheet has freze colum row
+        // luckysheetFreezen.scrollFreezen(rowseleted, columnseleted);
     },
     rangedrag_column_start: false,
     rangedrag_row_start: false,
@@ -2881,7 +2885,6 @@ const luckysheetformula = {
         _this.func_selectedrange["height_move"] = height;
 
         luckysheet_count_show(col_pre, top, col - col_pre - 1, height, rowseleted, [0, col_index]);
-
         _this.rangeSetValue({
             "row": rowseleted,
             "column": [null, null]

@@ -1170,6 +1170,8 @@ export default function luckysheetHandler() {
                 $("#luckysheet-rightclick-menu .luckysheet-cols-rows-shift-size").text(locale().rightclick.width);
                 $("#luckysheet-rightclick-menu .luckysheet-cols-rows-shift-left").text(locale().rightclick.left);
                 $("#luckysheet-rightclick-menu .luckysheet-cols-rows-shift-right").text(locale().rightclick.right);
+                $("#luckysheet-top-left-add-selected .luckysheet-cols-rows-shift-top-left").text(' Column to the Left');
+                $("#luckysheet-bottom-right-add-selected .luckysheet-cols-rows-shift-bottom-right").text(' Column to the Right');
 
                 $("#luckysheet-cols-rows-add").show();
                 // $("#luckysheet-cols-rows-data").show();
@@ -1245,6 +1247,8 @@ export default function luckysheetHandler() {
                 $("#luckysheet-rightclick-menu .luckysheet-cols-rows-shift-size").text(locale().rightclick.height);
                 $("#luckysheet-rightclick-menu .luckysheet-cols-rows-shift-left").text(locale().rightclick.top);
                 $("#luckysheet-rightclick-menu .luckysheet-cols-rows-shift-right").text(locale().rightclick.bottom);
+                $("#luckysheet-top-left-add-selected .luckysheet-cols-rows-shift-top-left").text(' Row to the Top');
+                $("#luckysheet-bottom-right-add-selected .luckysheet-cols-rows-shift-bottom-right").text(' Row to the Bottom');
                 $("#luckysheet-cols-rows-add").show();
                 // $("#luckysheet-cols-rows-data").show();
                 $("#luckysheet-cols-rows-shift").hide();

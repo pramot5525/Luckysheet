@@ -1159,7 +1159,7 @@ function createLuckyChart(width, height, left, top) {
 
 
     let chartData = getdatabyselection()
-    console.dir(chartData)
+    // console.dir(chartData)
 
     let chart_id = generateRandomKey('chart')
 

@@ -9149,14 +9149,14 @@ export default {
         { "text": 'Percent', "value": "#0.00%", "example": "12.21%" },
         { "text": 'Scientific', "value": "0.00E+00", "example": "1.01E+5" },
         { "text": "", "value": "split", "example": "" },
-        { "text": 'Accounting', "value": "¥(0.00)", "example": "¥(1200.09)" },
+        { "text": 'Accounting', "value": "$(0.00)", "example": "$(1200.09)" },
 
-
-        { "text": 'Currency', "value": "¥0.00", "example": "¥1200.09" },
-
+        { "text": 'Currency', "value": "$0.00", "example": "$1200.09" },
+        { "text": 'Currency (EUR)', "value": "€0.00", "example": "€1200.09" },
 
         { "text": "", "value": "split", "example": "" },
-        { "text": 'Date', "value": "yyyy-MM-dd", "example": "2017-11-29" },
+        // { "text": 'Date', "value": "yyyy-MM-dd", "example": "2017-11-29" },
+        { "text": 'Date', "value": "d MMM, YYYY", "example": "29 Sep, 2017" },
         { "text": 'Time', "value": "hh:mm AM/PM", "example": "3:00 PM" },
         { "text": 'Time 24H', "value": "hh:mm", "example": "15:00" },
         { "text": 'Date time', "value": "yyyy-MM-dd hh:mm AM/PM", "example": "2017-11-29 3:00 PM" },
@@ -9165,6 +9165,10 @@ export default {
         { "text": 'Custom formats', "value": "fmtOtherSelf", "example": "more" }
     ],
     dateFmtList:[
+        {
+            "name": "5 May, 1930",
+            "value": "d MMM, YYYY"
+        },
         {
             "name": "1930-08-05",
             "value": "yyyy-MM-dd"
@@ -9209,8 +9213,8 @@ export default {
     fontFamily:{
         MicrosoftYaHei:"YaHei",
     },
-    fontarray: ["Times New Roman","Arial","Tahoma","Verdana"],
-    fontjson: {"times new roman":0,"arial":1,"tahoma":2,"verdana":3},
+    fontarray: ["Arial","Times New Roman","Tahoma","Verdana"],
+    fontjson: {"arial":0,"times new roman":1,"tahoma":2,"verdana":3},
     border:{
         borderTop:'borderTop',
         borderBottom:'borderBottom',
@@ -9406,6 +9410,8 @@ export default {
         byRow: 'By row',
         byCol: 'By column',
         generateNewMatrix: 'Generate new matrix',
+        insertLeftColumn: 'Columns to to Left',
+        insertRightColumn: 'Columns to to Right'
 
     },
     comment:{

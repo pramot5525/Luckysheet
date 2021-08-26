@@ -10,6 +10,7 @@ import { luckysheet_searcharray } from '../controllers/sheetSearch';
 import {checkProtectionAuthorityNormal,checkProtectionNotEnable} from '../controllers/protection';
 import { getSheetIndex } from '../methods/get';
 import Store from '../store';
+import { convertCssToStyleList } from '../controllers/inlineString';
 
 //增加行列
 function luckysheetextendtable(type, index, value, direction, sheetIndex) {

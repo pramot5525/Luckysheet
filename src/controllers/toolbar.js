@@ -148,15 +148,29 @@ export function createToolbarHtml() {
                 </div>
             </div>
         </div>`,
+        // currencyFormat: `<div class="luckysheet-toolbar-button luckysheet-inline-block" data-tips="${toolbar.currencyFormat}"
+        // id="luckysheet-icon-currency" role="button" style="user-select: none;">
+        //     <div class="luckysheet-toolbar-button-outer-box luckysheet-inline-block"
+        //     style="user-select: none;">
+        //         <div class="luckysheet-toolbar-button-inner-box luckysheet-inline-block"
+        //         style="user-select: none;">
+        //             <div class="luckysheet-icon luckysheet-inline-block " style="user-select: none;">
+        //                 <div aria-hidden="true" class="luckysheet-icon-img-container luckysheet-icon-img iconfont luckysheet-iconfont-jine"
+        //                 style="user-select: none;">
+        //                 </div>
+        //             </div>
+        //         </div>
+        //     </div>
+        // </div>`,
         currencyFormat: `<div class="luckysheet-toolbar-button luckysheet-inline-block" data-tips="${toolbar.currencyFormat}"
         id="luckysheet-icon-currency" role="button" style="user-select: none;">
             <div class="luckysheet-toolbar-button-outer-box luckysheet-inline-block"
             style="user-select: none;">
                 <div class="luckysheet-toolbar-button-inner-box luckysheet-inline-block"
                 style="user-select: none;">
-                    <div class="luckysheet-icon luckysheet-inline-block " style="user-select: none;">
-                        <div aria-hidden="true" class="luckysheet-icon-img-container luckysheet-icon-img iconfont luckysheet-iconfont-jine"
-                        style="user-select: none;">
+                    <div class="luckysheet-icon luckysheet-inline-block " style="user-select: none; font-size: 12px;">
+                        <div aria-hidden="true" class="luckysheet-icon-img-container"
+                        style="user-select: none;">$
                         </div>
                     </div>
                 </div>
@@ -346,7 +360,7 @@ export function createToolbarHtml() {
             </div>
         </div>`, //'Text color'
         fillColor: `<div class="luckysheet-toolbar-button-split-left luckysheet-toolbar-button luckysheet-inline-block luckysheet-icon-cell-color"
-        data-tips="${toolbar.fillColor}" id="luckysheet-icon-cell-color" role="button" style="user-select: none;">
+        data-tips="${toolbar.fillColor}" id="luckysheet-icon-cell-color" role="button" style="user-select: none;" color="${luckysheetConfigsetting.defaultCellColor}">
             <div class="luckysheet-toolbar-button-outer-box luckysheet-inline-block"
             style="user-select: none;">
                 <div class="luckysheet-toolbar-menu-button-inner-box luckysheet-inline-block"
